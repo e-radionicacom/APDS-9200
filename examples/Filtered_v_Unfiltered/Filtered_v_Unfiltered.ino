@@ -1,9 +1,12 @@
 #include "APDS9200.h"
-// #include <C:\Users\Trevor Meyer\Documents\GitHub\APDS-9200\APDS9200.h>
-
 #include "Wire.h"
 
-APDS9200 light;
+APDS9200 lightSensor;
+
+long lightFiltered;
+long lightUnfiltered;
+long UVlightFiltered;
+long UVlightUnfiltered;
 
 void setup() {
   Serial.begin(9600);
@@ -11,21 +14,26 @@ void setup() {
 }
 
 void loop() {
-  // put your main code here, to run repeatedly:
 
   delay(500);
-  Serial.print("UV Light (Filter vs Unfilter:\t");
-  light.enableUV();
-  delay(100);
-  Serial.print( light.getUV() );
+  Serial.print("UV lightSensor (Filter vs Unfilter:\t");
+  lightSensor.enableUV();
+  delay(150);
+  UVlightFiltered = lightSensor.getUV();
+  UVlightUnfiltered = lightSensor.getUVUnfiltered();
+  Serial.print(UVlightFiltered);
   Serial.print("\t");
-  Serial.println(light.getUVUnfiltered() );
+  Serial.println(UVlightUnfiltered);
 
-  Serial.print("Light (Filter vs Unfilter):  ");
-  light.enableLight();
+  Serial.print("lightSensor (Filter vs Unfilter):  ");
+  lightSensor.enableLight();
   delay(100);
-  Serial.print( light.getLight());
+  lightFiltered = lightSensor.getLight();
+  lightUnfiltered = lightSensor.getLightUnfiltered();
+  Serial.print(lightFiltered);
   Serial.print("\t");
-  Serial.println( light.getLightUnfiltered() );
+  Serial.println(lightUnfiltered);
   Serial.println();
+
+  delay(500); // make readings each 500ms
 }

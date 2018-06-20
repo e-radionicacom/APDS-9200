@@ -537,6 +537,11 @@ void APDS9200::enableUV()
 	 // Is there a way to do this? Not sure how to define the object calling it
 	 // from inside the class itself.  I found this syntax online but I'm not
 	 // sure if it's completely right.
+
+	 // Based on Figure 7 from APDS 92000 datasheet
+	 // Figure goes only up to UV index 7, but it is clear that UV index is
+	 // approximately linear with UVS count. UV index, by definition, is 
+	 // linear as well. So we added values up to max UV index - 11. 
 	 
 	 
 	 if (UV < 275)
@@ -547,12 +552,20 @@ void APDS9200::enableUV()
 		 return 3;
 	 else if (UV < 1050)
 		 return 4;
-	 else if (UV < 1325)
+	 else if (UV < 1375)
 		 return 5;
 	 else if (UV < 1675)
 		 return 6;
-	 else
+	 else if(UV < 1950)
 		 return 7;
+	 else if(UV < 2225)
+	 	 return 8;
+	 else if(UV < 2500)
+	 	 return 9;
+	 else if(UV < 2775)
+	 	 return 10
+	 else
+	 	 return 11;
  }
  
  

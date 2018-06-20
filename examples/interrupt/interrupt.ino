@@ -1,7 +1,7 @@
 #include "APDS9200.h"
 #include "Wire.h"
 
-APDS9200 light;
+APDS9200 lightSensor;
 const int interruptPin = 6;
 const int LED = 5;
 
@@ -13,25 +13,24 @@ void setup() {
   pinMode(LED, OUTPUT);
 
   //For both and upper and lower threshold:
-  light.setInterruptThresh(500, 1000);
+  lightSensor.setInterruptThresh(500, 1000);
 
-  //Just the upper light threshold:
-  //light.setInterruptThreshUpper(1000);
+  //Just the upper lightSensor threshold:
+  //lightSensor.setInterruptThreshUpper(1000);
 
-  //Just the lower light threshold:
-  //light.setInterruptThreshLower(500);
+  //Just the lower lightSensor threshold:
+  //lightSensor.setInterruptThreshLower(500);
 
   
-  light.enableLightInterrupt();
+  lightSensor.enableLightInterrupt();
 }
 
 void loop() {
   // put your main code here, to run repeatedly:
   
-  light.enableLight();
+  lightSensor.enableLight();
   
-  // Sensor is most reliable with at minimum 104ms between readings
-  delay(104);
+  delay(150);
 
   if(digitalRead(interruptPin) == HIGH)
     digitalWrite(LED, HIGH);
