@@ -563,7 +563,7 @@ void APDS9200::enableUV()
 	 else if(UV < 2500)
 	 	 return 9;
 	 else if(UV < 2775)
-	 	 return 10
+	 	 return 10;
 	 else
 	 	 return 11;
  }
